@@ -1,20 +1,64 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 🍽️ Digital Restaurant Menu System
 
-# Run and deploy your AI Studio app
+A modern QR based digital menu platform for restaurants.  
+Customers can scan a QR code to view the live menu, while restaurant admins can manage dishes, categories, availability, and restaurant details from a dashboard.
 
-This contains everything you need to run your app locally.
+Built as a full-stack web application using React and Firebase.
 
-View your app in AI Studio: https://ai.studio/apps/1723c9ff-d609-41a4-8beb-e9477802fafb
+---
 
-## Run Locally
+## 🚀 Features
 
-**Prerequisites:**  Node.js
+### Customer Menu
+- 📱 Mobile-friendly digital menu
+- 🔍 Search dishes instantly
+- 🗂️ Browse dishes by categories
+- 🖼️ Food images and descriptions
+- 💰 Live price updates
+- ✅ Shows item availability
 
+### Admin Dashboard
+- Secure admin login
+- Add, edit, and delete dishes
+- Manage menu categories
+- Upload food images
+- Update restaurant information
+- Generate QR code for customers
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Real-time Updates
+Changes made from the admin panel are stored in Firebase and reflected in the customer menu without needing to recreate QR codes.
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+
+**Backend & Services**
+- Firebase Authentication
+- Cloud Firestore
+- Firebase Storage
+- Firebase Hosting
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+ ├── components/     # Reusable UI components
+ ├── pages/          # Customer and admin pages
+ ├── services/       # Firebase services
+ ├── types/          # TypeScript models
+ └── assets/         # Static assets
+```
+
+---
+
+Developed by **Christo Pius**
+
+GitHub: @christoPius
