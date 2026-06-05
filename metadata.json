@@ -1,0 +1,6 @@
+{
+  "name": "Digital Menu Card",
+  "description": "A premium response restaurant digital menu card system with real-time administration panel and QR generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

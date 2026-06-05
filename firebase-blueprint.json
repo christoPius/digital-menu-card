@@ -1,0 +1,57 @@
+{
+  "entities": {
+    "Category": {
+      "title": "Category",
+      "description": "A food menu category grouping relevant dishes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "categoryName": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["id", "categoryName", "description"]
+    },
+    "MenuItem": {
+      "title": "MenuItem",
+      "description": "A delicacy/item on the menu, containing pricing and availability details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "imageURL": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "availability": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "description", "price", "categoryId", "availability", "createdAt"]
+    },
+    "RestaurantInfo": {
+      "title": "RestaurantInfo",
+      "description": "Branding and metadata settings of the restaurant",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "logoURL": { "type": "string" },
+        "address": { "type": "string" },
+        "contactNumber": { "type": "string" }
+      },
+      "required": ["name", "logoURL", "address", "contactNumber"]
+    }
+  },
+  "firestore": {
+    "categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Collections of food categories"
+    },
+    "menuItems/{menuItemId}": {
+      "schema": "MenuItem",
+      "description": "Collections of gourmet menu items"
+    },
+    "restaurantInfo/{infoId}": {
+      "schema": "RestaurantInfo",
+      "description": "Singleton configuration for restaurant metadata"
+    }
+  }
+}

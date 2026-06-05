@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    // Categories Rules
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow create: if isSignedIn() 
+        && isValidId(categoryId)
+        && incoming().categoryName is string 
+        && incoming().categoryName.size() > 0 
+        && incoming().categoryName.size() <= 100
+        && incoming().description is string
+        && incoming().description.size() <= 300;
+        
+      allow update: if isSignedIn() 
+        && isValidId(categoryId)
+        && incoming().categoryName is string 
+        && incoming().categoryName.size() > 0 
+        && incoming().categoryName.size() <= 100
+        && incoming().description is string
+        && incoming().description.size() <= 300;
+        
+      allow delete: if isSignedIn();
+    }
+
+    // MenuItems Rules
+    match /menuItems/{menuItemId} {
+      allow read: if true;
+      allow create: if isSignedIn()
+        && isValidId(menuItemId)
+        && incoming().name is string
+        && incoming().name.size() > 0
+        && incoming().name.size() <= 100
+        && incoming().description is string
+        && incoming().description.size() <= 1000
+        && incoming().price is number
+        && incoming().price >= 0
+        && incoming().categoryId is string
+        && incoming().availability is bool
+        && incoming().createdAt is string
+        && (!('dietaryTags' in incoming()) || (incoming().dietaryTags is list && incoming().dietaryTags.size() <= 15));
+
+      allow update: if isSignedIn()
+        && isValidId(menuItemId)
+        && incoming().name is string
+        && incoming().name.size() > 0
+        && incoming().name.size() <= 100
+        && incoming().description is string
+        && incoming().description.size() <= 1000
+        && incoming().price is number
+        && incoming().price >= 0
+        && incoming().categoryId is string
+        && incoming().availability is bool
+        && (!('dietaryTags' in incoming()) || (incoming().dietaryTags is list && incoming().dietaryTags.size() <= 15));
+
+      allow delete: if isSignedIn();
+    }
+
+    // RestaurantInfo Rules
+    match /restaurantInfo/{infoId} {
+      allow read: if true;
+      allow create: if isSignedIn()
+        && isValidId(infoId)
+        && incoming().name is string
+        && incoming().name.size() > 0
+        && incoming().name.size() <= 100;
+
+      allow update: if isSignedIn()
+        && isValidId(infoId)
+        && incoming().name is string
+        && incoming().name.size() > 0
+        && incoming().name.size() <= 100;
+
+      allow delete: if isSignedIn();
+    }
+  }
+}
